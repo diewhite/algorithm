@@ -3,25 +3,28 @@ package datastructure;
 import java.util.Scanner;
 
 class MyStack{
-	private int[] mystack;//MyStackÅ¬·¡½º ³»ºÎ¿¡¼­ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ±â À§ÇÑ °ø°£(½ºÅØÃ³·³ È°¿ë)
-	private int top_position;//½ºÅØÀÇ topÀÇ À§Ä¡°ªÀ» ÀúÀå
+	private int[] mystack;//MyStackí´ë˜ìŠ¤ ë‚´ë¶€ì—ì„œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ê³µê°„(ìŠ¤í…ì²˜ëŸ¼ í™œìš©)
+	private int top_position;//ìŠ¤í…ì˜ topì˜ ìœ„ì¹˜ê°’ì„ ì €ì¥
 	public MyStack(int size) {
 		this.mystack = new int[size];
 		top_position = 0;
 	}
-	//pop,push,top,empty,size¸Ş¼Òµå¸¦ ±¸Çö
+	//pop,push,top,empty,sizeë©”ì†Œë“œë¥¼ êµ¬í˜„
 	public void push(String value) {
 		this.mystack[top_position] = Integer.parseInt(value);
 		top_position++;		
 	}
-	public void pop() {
+	public int pop() {
+		int result = 0;
 		if(top_position>0) {
-			System.out.println(mystack[top_position-1]);
+			result = mystack[top_position-1];
 			mystack[top_position-1] = 0;
 			top_position--;
+			
 		}else {
-			System.out.println("-1");
+			result = -1;
 		}
+		return result;
 	}
 	public int top() {
 		int val = mystack[top_position];
@@ -32,12 +35,14 @@ class MyStack{
 		}
 		return val;
 	}
-	public void empty() {
+	public int empty() {
+		int result = 0;
 		if(this.top_position==0) {
-			System.out.println("1");
+			result = 1;
 		}else {
-			System.out.println("0");
+			result = 0;
 		}
+		return result;
 	}
 	public int size() {
 		int size = 0;
@@ -65,23 +70,24 @@ class MyStack{
 
 public class StackTest {
 	public static void main(String[] args) {
-		//1. ½ºÄ³³ÊÀÇ°´Ã¼»ı¼º
-		//2. MyStack°´Ã¼»ı¼º
+		//1. ìŠ¤ìºë„ˆì˜ê°ì²´ìƒì„±
+		//2. MyStackê°ì²´ìƒì„±
 		//3.
 		Scanner sc = new Scanner(System.in);
 		int count = sc.nextInt();
-		MyStack stack = new MyStack(5);
+		sc.nextLine();//nextIntë¥¼ ì´ìš©í•´ì„œ intë°ì´í„°ë¥¼ ì½ê³  ëˆ„ë¥¸ Enterí‚¤ê¹Œì§€ ëª¨ë‘ ì½ê³  ì™„ë£Œ
+		MyStack stack = new MyStack(count);
 		for(int i=0; i<=count; i++) {
-			//½ÇÇàÈ½¼ö¸¸Å­ Á÷Á¢ push, pop, top, empty, size ÀÔ·Â - ÀÔ·Âµ¥ÀÌÅÍÀÇ ¿¹½Ã Ã³·³ ÀÔ·Â
+			//ì‹¤í–‰íšŸìˆ˜ë§Œí¼ ì§ì ‘ push, pop, top, empty, size ì…ë ¥ - ì…ë ¥ë°ì´í„°ì˜ ì˜ˆì‹œì²˜ëŸ¼ ì…ë ¥
 			String line = sc.nextLine();
-			String[] cmd = line.split(" ");//2°³ ÀÔ·Â line[0], line[1]¹ß»ı, 1°³ ÀÔ·Â line[0] ¹ß»ı
+			String[] cmd = line.split(" ");//2ê°œ ì…ë ¥ line[0], line[1]ë°œìƒ, 1ê°œ ì…ë ¥
 			switch(cmd[0]) {
 				case "push":
 					stack.push(cmd[1]);
 				break;
 				
 				case "pop":
-					stack.pop();
+					System.out.println(stack.pop());
 				break;
 				
 				case "top":
@@ -89,7 +95,7 @@ public class StackTest {
 				break;
 				
 				case "empty":
-					stack.empty();
+					System.out.println(stack.empty());
 				break;
 				
 				case "size":
